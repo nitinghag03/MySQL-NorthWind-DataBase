@@ -223,14 +223,16 @@ order by average desc ;
 -- Notice when you run this, it gives Sweden as the ShipCountry with the third highest freight charges. However, this is wrong - it should be France. What is the OrderID of the order that the (incorrect) answer above is missing?
 
 -- 28. High freight charges - last year We're continuing to work on high freight charges. We now want to get the three ship countries with the highest average freight charges. But instead of filtering for a particular year, we want to use the last 12 months of order data, using as the end date the last OrderDate in Orders
+use northwind_db;
 Select ship_country,
 avg(freight) as average
- FROM orders 
+FROM orders 
 group by ship_country 
+having order_date between >= '1997-05-06' and <='1998-05-06'
 order by order_date ;
 
 
-where order_date <='1998-05-06' and >= '1997-05-06';
+having order_date between <='1998-05-06' and >= '1997-05-06';
 
 
 -- 29. Inventory list We're doing inventory, and need to show information like the below, for all orders. Sort by OrderID and Product ID.
@@ -364,8 +366,19 @@ join country
 on city.country_id=country.country_id
 order by customer_id;
 
+-- ??6
+SELECT customer_id,
+count(rental_id),sum(amount)
+FROM payment
 
+group by customer_id ;
 
+-- ??8
+use mavenmovies;
+SELECT awards,
+count(actor_id)
+FROM actor_award
+group by awards;
 
 
 
